@@ -6,6 +6,9 @@ Takes a list mxd_lst of integers and floats and returns their sum as a float.
 """
 import typing
 
-mxd_list = typing.Union[int, float]
-def sum_mixed_list(mxd_list) -> float:
+mxd = mxd_list = typing.List[typing.Union[int, float]]
+
+
+def sum_mixed_list(mxd_list: mxd) -> float:
+    """Return sum of the mixed list as a float"""
     return sum(mxd_list)
