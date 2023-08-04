@@ -10,7 +10,7 @@ from client import GithubOrgClient
 
 from unittest.mock import (
     MagicMock,
-    patch,
+    patch
     )
 
 
@@ -29,7 +29,10 @@ class TestGithubOrgClient(unittest.TestCase):
         """test for org method"""
         mocked_func.return_value = MagicMock(return_value=response)
         github_org_client = GithubOrgClient(org)
-        self.assertEqual(github_org_client, response)
+        self.assertEqual(github_org_client.org(), response)
 
         mocked_func.assert_called_once_with(
             f"https://api.github.com/orgs/{org}")
+
+if __name__ == "__main__":
+    unittest.main()
