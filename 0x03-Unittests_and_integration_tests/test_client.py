@@ -10,7 +10,8 @@ from client import GithubOrgClient
 
 from unittest.mock import (
     MagicMock,
-    patch
+    patch,
+    PropertyMock
     )
 
 
@@ -33,6 +34,18 @@ class TestGithubOrgClient(unittest.TestCase):
 
         mocked_func.assert_called_once_with(
             f"https://api.github.com/orgs/{org}")
+
+    def test_public_repos_url(self) -> None:
+        """test for the public_repos_url property"""
+        with patch(
+                "client.GithubOrgClient.org",
+                new_callable=PropertyMock) as mock_org:
+            mock_org.return_value = {
+                'repos_url': "https://api.github.com/users/google/repos"
+                }
+            self.assertEqual(GithubOrgClient("google")._public_repos_url,
+                             "https://api.github.com/users/google/repos")
+
 
 if __name__ == "__main__":
     unittest.main()
