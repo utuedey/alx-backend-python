@@ -97,6 +97,18 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_public_repos_url.assert_called_once()
         mock_get_json.assert_called_once()
 
+    parameters = (
+        ({"license": {"key": "bsl-1.0"}}, "bsl-1.0", True),
+        ({"license": {"key":  "apache-2.0"}}, "bsl-1.0", False)
+    )
+
+    @parameterized.expand(parameters)
+    def test_has_license(self, repo: Dict, key: str, expected: bool) -> None:
+        """test for the has_license method"""
+        github_org_client = GithubOrgClient("google")
+        client_has_license = github_org_client.has_license(repo, key)
+        self.assertEqual(client_has_license, expected)
+
 
 if __name__ == "__main__":
     unittest.main()
